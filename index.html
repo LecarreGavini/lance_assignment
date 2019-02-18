@@ -22,9 +22,10 @@
             <!-- Input -->
             <input type="number" id="whole_number_input" name="whole_number_input" placeholder="Example: 12"
                 autocomplete="off">
+            <button type="button" onclick="negateInteger(whole_number_input.valueAsNumber, 'whole_number_input')">Negate</button>
 
             <!-- Output -->
-            <p>Output: <strong><output name="output_result_a" for="whole_number_input">0</output></strong></p>
+            <p>Output: <strong><output name="output_result_a" id="output_result_a" for="whole_number_input">0</output></strong></p>
         </form>
     </div>
 
@@ -34,18 +35,21 @@
     <h4>B. Find Negative Numbers</h4>
     <div class="set_b">
         <hr>
-        <form onsubmit="return false" oninput="output_result_b.value = checkArrayForNegativeIntegers(integers_array_input.value)">
+        <form onsubmit="return false">
             <small style="float:right;">...Type in positive or negative integers...</small><br>
             <label for="integers_array_input">Input: </label>
 
             <!-- Input -->
             <input type="number" id="integers_array_input" name="integers_array_input" placeholder="Example: 7 (enter)"
                 autocomplete="off">
+            <button type="button" onclick="negateInteger(integers_array_input.valueAsNumber, 'integers_array_input')">Negate</button>
+            <button type="button" onclick="findNegativeInteger()">Find</button>
+            <button type="button" onclick="clearIntegersArrayField()">Clear</button>
 
             <br><br>Array: <span id="integers_array"></span><br>
 
             <!-- Output -->
-            <p>Output: <strong><output name="output_result_b" for="integers_array_input">0</output></strong></p>
+            <p>Output: <strong><output id="output_result_b" for="integers_array_input">0</output></strong></p>
         </form>
     </div>
 
@@ -55,15 +59,38 @@
     <h4>C. Compute Change</h4>
     <div class="set_c">
         <hr>
-        <form onsubmit="return false" oninput="output_result_a.value = calculateChange(whole_number_input.valueAsNumber)">
+        <form onsubmit="return false">
             <small style="float:right;">...Type in whole numbers...</small><br>
-            <label for="whole_number_input">Input: </label>
+            <label for="computer_number_input">Input</label>
 
             <!-- Input -->
-            <input type="number" id="whole_number_input" name="whole_number_input" autocomplete="off">
+            <table>
+                <tr>
+                    <td>&emsp;Price: ₱</td>
+                    <td>&emsp;<input type="number" id="price_integer_input" name="price_integer_input" placeholder="Example: 1000"
+                            autocomplete="off"></td>
+                </tr>
+                <tr>
+                    <td>&emsp;Payment: ₱</td>
+                    <td>&emsp;<input type="number" id="payment_integer_input" name="payment_integer_input" placeholder="Example: 1500"
+                            autocomplete="off"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><button type="button" onclick="calculateChange(payment_integer_input.valueAsNumber, price_integer_input.valueAsNumber)"
+                            style="float:right;">Change</button></td>
+                </tr>
+            </table>
+
 
             <!-- Output -->
-            <p>Output: <strong><output name="output_result_c" for="whole_number_input">0</output></strong></p>
+            <p>Output: 
+            <strong>
+                <output name="output_result_c1" id="output_result_c1" for="computer_number_input" 
+                    style="white-space: pre; font-family: monospace;"></output><br>
+                <output name="output_result_c" id="output_result_c" for="computer_number_input" 
+                                       style="white-space: pre; font-family: monospace;">0</output>
+            </strong></p>
         </form>
     </div>
 
@@ -71,6 +98,10 @@
 
     <!-- Processes -->
     <script>
+        // Declarations
+        var integers = [];
+        const integer_input = document.getElementById("integers_array_input");
+
         // Params
         // Whole Number
         function binaryConversion(wholeNumber) {
@@ -83,19 +114,86 @@
 
         // Params
         // Array of Integers
-        function checkArrayForNegativeIntegers(integersArray) {
-            return 1;
+        function findNegativeInteger() {
+            let negativeIntegers = [];
+            for (var x = 0; x < integers.length; x++) {
+                if (integers[x] < 0)
+                    negativeIntegers.push(integers[x]);
+            }
+            document.getElementById("output_result_b").innerHTML = negativeIntegers.length === 0 ? '1' :
+                negativeIntegers;
         }
 
         // Params
         // Tendered Array, Price, and Decimal
-        function calculateChange() {
+        function calculateChange(payment, price) {
+            let bill_ctr = 0;
+            let change = payment - price;
+            // let stringifyPayment = payment.toString();
+            let bills = [1000, 500, 100, 50, 20, 10, 5, 1];
+            let changeObj = {
+                "1000": 0,
+                "500": 0,
+                "100": 0,
+                "50": 0,
+                "20": 0,
+                "10": 0,
+                "5": 0,
+                "1": 0,
+            };
 
+            if (change < 0) {
+                alert("Insuficient Payment");
+                return;
+            }
+
+
+            if (change == 0) {
+                alert("No Change");
+                return;
+            }
+
+            document.getElementById("output_result_c1").innerHTML = change;
+
+            while (bill_ctr < bills.length) {
+                while (change >= bills[bill_ctr]) {
+                    change -= bills[bill_ctr];
+                    changeObj[bills[bill_ctr]]++;
+
+                    console.log("change " + change);
+                    console.log("ctr " + bills[bill_ctr]);
+                }
+
+                bill_ctr++;
+            }
+
+            document.getElementById("output_result_c").innerHTML = JSON.stringify(changeObj, null, 4);
         }
 
         // Other functions...
-        const integers = [];
-        const integer_input = document.getElementById("integers_array_input");
+        function negateInteger(integerToNegate, field) {
+            if (integerToNegate > 0) {
+                negatedInteger = integerToNegate - (integerToNegate * 2);
+                if (field == "whole_number_input")
+                    document.getElementById("output_result_a").innerHTML = (negatedInteger).toString(2);
+
+                if (field == "integers_array_input")
+                    addIntegerToArray(negatedInteger);
+            }
+        }
+
+        function clearIntegersArrayField() {
+            integers = [];
+            document.getElementById("integers_array").innerHTML = "";
+            document.getElementById("output_result_b").innerHTML = 0;
+            document.getElementById("integers_array_input").value = "";
+        }
+
+        function addIntegerToArray(integer) {
+            integers.push(integer);
+            document.getElementById("integers_array_input").value = "";
+            document.getElementById("integers_array").innerHTML = integers;
+        }
 
         integer_input.addEventListener("keyup", function (event) {
             event.preventDefault();
@@ -109,11 +207,8 @@
                 return;
             }
 
-            integers.push(integer_value);
-            document.getElementById("integers_array_input").value = "";
-            document.getElementById("integers_array").innerHTML = integers;
+            addIntegerToArray(integer_value);
         });
-        
     </script>
 </body>
 
