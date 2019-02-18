@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lance Assignment</title>
+</head>
+
+<body>
+    <h1 style="text-align: center;">Lance Assignment</h1>
+
+    <!-- Algorithm 1 -->
+    <h4>A. Convert Whole Number to Binary</h4>
+    <div class="set_a">
+        <hr>
+        <form onsubmit="return false" oninput="output_result_a.value = binaryConversion(whole_number_input.valueAsNumber)">
+            <small style="float:right;">...Type in whole numbers...</small><br>
+            <label for="whole_number_input">Input: </label>
+
+            <!-- Input -->
+            <input type="number" id="whole_number_input" name="whole_number_input" placeholder="Example: 12"
+                autocomplete="off">
+
+            <!-- Output -->
+            <p>Output: <strong><output name="output_result_a" for="whole_number_input">0</output></strong></p>
+        </form>
+    </div>
+
+    <br><br>
+
+    <!-- Algorithm 2 -->
+    <h4>B. Find Negative Numbers</h4>
+    <div class="set_b">
+        <hr>
+        <form onsubmit="return false" oninput="output_result_b.value = checkArrayForNegativeIntegers(integers_array_input.value)">
+            <small style="float:right;">...Type in positive or negative integers...</small><br>
+            <label for="integers_array_input">Input: </label>
+
+            <!-- Input -->
+            <input type="number" id="integers_array_input" name="integers_array_input" placeholder="Example: 7 (enter)"
+                autocomplete="off">
+
+            <br><br>Array: <span id="integers_array"></span><br>
+
+            <!-- Output -->
+            <p>Output: <strong><output name="output_result_b" for="integers_array_input">0</output></strong></p>
+        </form>
+    </div>
+
+    <br><br>
+
+    <!-- Algorithm 3 -->
+    <h4>C. Compute Change</h4>
+    <div class="set_c">
+        <hr>
+        <form onsubmit="return false" oninput="output_result_a.value = calculateChange(whole_number_input.valueAsNumber)">
+            <small style="float:right;">...Type in whole numbers...</small><br>
+            <label for="whole_number_input">Input: </label>
+
+            <!-- Input -->
+            <input type="number" id="whole_number_input" name="whole_number_input" autocomplete="off">
+
+            <!-- Output -->
+            <p>Output: <strong><output name="output_result_c" for="whole_number_input">0</output></strong></p>
+        </form>
+    </div>
+
+    <br><br>
+
+    <!-- Processes -->
+    <script>
+        // Params
+        // Whole Number
+        function binaryConversion(wholeNumber) {
+            if (!isNaN(wholeNumber)) {
+                return (wholeNumber).toString(2);
+            }
+
+            return 0;
+        }
+
+        // Params
+        // Array of Integers
+        function checkArrayForNegativeIntegers(integersArray) {
+            return 1;
+        }
+
+        // Params
+        // Tendered Array, Price, and Decimal
+        function calculateChange() {
+
+        }
+
+        // Other functions...
+        const integers = [];
+        const integer_input = document.getElementById("integers_array_input");
+
+        integer_input.addEventListener("keyup", function (event) {
+            event.preventDefault();
+            const integer_value = parseInt(integer_input.value);
+
+            if (event.keyCode !== 13) {
+                return;
+            }
+
+            if (isNaN(integer_value)) {
+                return;
+            }
+
+            integers.push(integer_value);
+            document.getElementById("integers_array_input").value = "";
+            document.getElementById("integers_array").innerHTML = integers;
+        });
+        
+    </script>
+</body>
+
+</html>
