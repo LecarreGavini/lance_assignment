@@ -6,10 +6,126 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Lance Assignment</title>
+
+    <style>
+        #myImg {
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #myImg1 {
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #myImg:hover {opacity: 0.7;}
+
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+        }
+
+        /* Modal Content (image) */
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        /* Caption of Modal Image */
+        #caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
+        }
+
+        /* Add Animation */
+        .modal-content, #caption {  
+            -webkit-animation-name: zoom;
+            -webkit-animation-duration: 0.6s;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        @-webkit-keyframes zoom {
+            from {-webkit-transform:scale(0)} 
+            to {-webkit-transform:scale(1)}
+        }
+
+        @keyframes zoom {
+            from {transform:scale(0)} 
+            to {transform:scale(1)}
+        }
+
+        /* The Close Button */
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* The Close Button */
+        .close1 {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close1:hover,
+        .close1:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* 100% Image Width on Smaller Screens */
+        @media only screen and (max-width: 700px){
+            .modal-content {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <h1 style="text-align: center;">Lance Assignment</h1>
+    <h1 style="text-align: center;">
+        Lance Assignment
+        <img id="myImg" src="img_flowchart.jpg" alt="Flowchart" style="width:30px;height:30px;vertical-align: middle;border-color: red" border="2">
+        <img id="myImg1" src="img_pseudocode.jpg" alt="Pseudocode" style="width:30px;height:30px;vertical-align: middle;border-color: red" border="2">
+    </h1>
 
     <!-- Algorithm 1 -->
     <h4>A. Convert Whole Number to Binary</h4>
@@ -24,7 +140,7 @@
                 autocomplete="off">
             <button type="button" onclick="negateInteger(whole_number_input.valueAsNumber, 'whole_number_input')">Negate</button>
 
-            <!-- Output -->
+            <!-- Output -->      
             <p>Output: <strong><output name="output_result_a" id="output_result_a" for="whole_number_input">0</output></strong></p>
         </form>
     </div>
@@ -79,22 +195,31 @@
                     <td></td>
                     <td><button type="button" onclick="calculateChange(payment_integer_input.valueAsNumber, price_integer_input.valueAsNumber)"
                             style="float:right;">Change</button></td>
-                </tr>
+                </tr> 
             </table>
 
 
             <!-- Output -->
-            <p>Output: 
-            <strong>
-                <output name="output_result_c1" id="output_result_c1" for="computer_number_input" 
-                    style="white-space: pre; font-family: monospace;"></output><br>
-                <output name="output_result_c" id="output_result_c" for="computer_number_input" 
-                                       style="white-space: pre; font-family: monospace;">0</output>
-            </strong></p>
+            <p>Output:<strong>
+                    <output name="output_result_c1" id="output_result_c1" for="computer_number_input" style="white-space: pre; font-family: monospace;">0</output><br>
+                    <output name="output_result_c" id="output_result_c" for="computer_number_input" style="white-space: pre; font-family: monospace;"></output>
+                </strong></p>
         </form>
     </div>
 
     <br><br>
+
+    <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="img01">
+        <div id="caption"></div>
+    </div>
+
+    <div id="myModal1" class="modal">
+        <span class="close1">&times;</span>
+        <img class="modal-content" id="img02">
+        <div id="caption1"></div>
+    </div>
 
     <!-- Processes -->
     <script>
@@ -209,6 +334,41 @@
 
             addIntegerToArray(integer_value);
         });
+    </script>
+    <script>
+        var modal = document.getElementById('myModal');
+
+        var img = document.getElementById('myImg');
+        var modalImg = document.getElementById("img01");
+        var captionText = document.getElementById("caption");
+        img.onclick = function () {
+            modal.style.display = "block";
+            modalImg.src = this.src;
+            captionText.innerHTML = this.alt;
+        }
+
+        var modal1 = document.getElementById('myModal1');
+
+        var img1 = document.getElementById('myImg1');
+        var modalImg1 = document.getElementById("img02");
+        var captionText1 = document.getElementById("caption1");
+        img1.onclick = function () {
+            modal1.style.display = "block";
+            modalImg1.src = this.src;
+            captionText1.innerHTML = this.alt;
+        }
+
+        var span = document.getElementsByClassName("close")[0];
+
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        var span1 = document.getElementsByClassName("close1")[0];
+
+        span1.onclick = function () {
+            modal1.style.display = "none";
+        }
     </script>
 </body>
 
