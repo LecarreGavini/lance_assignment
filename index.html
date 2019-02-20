@@ -93,24 +93,6 @@
             cursor: pointer;
         }
 
-        /* The Close Button */
-        .close1 {
-            position: absolute;
-            top: 15px;
-            right: 35px;
-            color: #f1f1f1;
-            font-size: 40px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .close1:hover,
-        .close1:focus {
-            color: #bbb;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
         /* 100% Image Width on Smaller Screens */
         @media only screen and (max-width: 700px){
             .modal-content {
@@ -123,8 +105,10 @@
 <body>
     <h1 style="text-align: center;">
         Lance Assignment
-        <img id="myImg" src="flow.jpg" alt="Flowchart" style="width:30px;height:30px;vertical-align: middle;border-color: red" border="2">
-        <img id="myImg1" src="img_pseudocode.jpg" alt="Pseudocode" style="width:30px;height:30px;vertical-align: middle;border-color: red" border="2">
+        <img id="myImg" src="flow.jpg" alt="Flowchart" style="width:30px;height:30px;vertical-align: middle;border-color: red"
+            border="2">
+        <img id="myImg1" src="img_pseudocode.jpg" alt="Pseudocode" style="width:30px;height:30px;vertical-align: middle;border-color: red"
+            border="2">
     </h1>
 
     <!-- Algorithm 1 -->
@@ -140,7 +124,7 @@
                 autocomplete="off">
             <button type="button" onclick="negateInteger(whole_number_input.valueAsNumber, 'whole_number_input')">Negate</button>
 
-            <!-- Output -->      
+            <!-- Output -->
             <p>Output: <strong><output name="output_result_a" id="output_result_a" for="whole_number_input">0</output></strong></p>
         </form>
     </div>
@@ -195,7 +179,7 @@
                     <td></td>
                     <td><button type="button" onclick="calculateChange(payment_integer_input.valueAsNumber, price_integer_input.valueAsNumber)"
                             style="float:right;">Change</button></td>
-                </tr> 
+                </tr>
             </table>
 
 
@@ -216,7 +200,7 @@
     </div>
 
     <div id="myModal1" class="modal">
-        <span class="close1">&times;</span>
+        <span class="close">&times;</span>
         <img class="modal-content" id="img02">
         <div id="caption1"></div>
     </div>
@@ -280,13 +264,17 @@
 
             document.getElementById("output_result_c1").innerHTML = change;
 
+            if (change > 1000) {
+                change /= 1000;
+                changeObj["1000"] = Math.floor(change);
+                change -= Math.floor(change);
+                change = change * 1000;
+            }
+
             while (bill_ctr < bills.length) {
                 while (change >= bills[bill_ctr]) {
                     change -= bills[bill_ctr];
                     changeObj[bills[bill_ctr]]++;
-
-                    console.log("change " + change);
-                    console.log("ctr " + bills[bill_ctr]);
                 }
 
                 bill_ctr++;
@@ -359,12 +347,11 @@
         }
 
         var span = document.getElementsByClassName("close")[0];
+        var span1 = document.getElementsByClassName("close")[1];
 
         span.onclick = function () {
             modal.style.display = "none";
         }
-
-        var span1 = document.getElementsByClassName("close1")[0];
 
         span1.onclick = function () {
             modal1.style.display = "none";
