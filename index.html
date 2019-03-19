@@ -103,6 +103,8 @@
 </head>
 
 <body>
+
+    <!-- Headers -->
     <h1 style="text-align: center;">
         Lance Assignment
         <img id="myImg" src="flow.jpg" alt="Flowchart" style="width:30px;height:30px;vertical-align: middle;border-color: red"
@@ -168,12 +170,12 @@
                 <tr>
                     <td>&emsp;Price: ₱</td>
                     <td>&emsp;<input type="number" id="price_integer_input" name="price_integer_input" placeholder="Example: 1000"
-                            autocomplete="off"></td>
+                            autocomplete="off" step=".01"></td>
                 </tr>
                 <tr>
                     <td>&emsp;Payment: ₱</td>
                     <td>&emsp;<input type="number" id="payment_integer_input" name="payment_integer_input" placeholder="Example: 1500"
-                            autocomplete="off"></td>
+                            autocomplete="off" step=".01"></td>
                 </tr>
                 <tr>
                     <td></td>
@@ -234,12 +236,13 @@
         }
 
         // Params
-        // Tendered Array, Price, and Decimal
+        // Payment, Price
         function calculateChange(payment, price) {
             let bill_ctr = 0;
-            let change = payment - price;
-            // let stringifyPayment = payment.toString();
-            let bills = [1000, 500, 100, 50, 20, 10, 5, 1];
+            let newChange = 0;
+            let thousandsChange = 0;
+            let change = (payment - price).toFixed(2);
+            let bills = [1000, 500, 100, 50, 20, 10, 5, 1, 0.25, 0.1, 0.05, 0.01];
             let changeObj = {
                 "1000": 0,
                 "500": 0,
@@ -249,6 +252,10 @@
                 "10": 0,
                 "5": 0,
                 "1": 0,
+                "0.25": 0,
+                "0.1": 0,
+                "0.05": 0,
+                "0.01": 0,
             };
 
             if (change < 0) {
@@ -265,18 +272,16 @@
             document.getElementById("output_result_c1").innerHTML = change;
 
             if (change > 1000) {
-                change /= 1000;
-                changeObj["1000"] = Math.floor(change);
-                change -= Math.floor(change);
-                change = change * 1000;
+                changeObj["1000"] = Math.floor(change / 1000);
+                change -= (changeObj["1000"] * 1000);
             }
 
+            // example 12.14 and 13.32
             while (bill_ctr < bills.length) {
                 while (change >= bills[bill_ctr]) {
-                    change -= bills[bill_ctr];
+                    change = (change - bills[bill_ctr]).toFixed(2);
                     changeObj[bills[bill_ctr]]++;
                 }
-
                 bill_ctr++;
             }
 
